@@ -1,16 +1,16 @@
-# ron-osdi2023
+# Compile and install
 
-# user space benchmark
+## user space benchmark
 1. download LiTL (https://github.com/multicore-locks/litl)
 2. place ron.c, tickron.c plockron.c in (dir of LiTL)/src
 3. Compile and execute according to LiTL's instructions
  
-# kernel space
+## kernel space
 1. Download Linux kernel 5.12.1 from (https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-5.12.1.tar.xz).
 2. Use qspinlock.patch to patch (kernel source)/kernel/locking/qspinlock.c.
 3. Compile and install the kernel using the instructions provided at (https://linuxhint.com/compile-and-install-kernel-ubuntu/).
 
-# costomize the TSP_ORDER for your own
+## costomize the TSP_ORDER for your own
 1. Obtain the cost of communication between cores from the following source: (https://github.com/nviennot/core-to-core-latency).
 2. Generate the shortest path using Google OR Tools. Refer to the documentation available at (https://developers.google.com/optimization).
 3. For these four files (ron.c, plockron.c, tickron.c, qspinlock.c), write the shortest path into an array. Taking AMD 2990WX as an example, the array format should be:
