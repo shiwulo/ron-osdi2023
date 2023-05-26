@@ -10,7 +10,7 @@
 2. Use qspinlock.patch to patch (kernel source)/kernel/locking/qspinlock.c.
 3. Compile and install the kernel using the instructions provided at (https://linuxhint.com/compile-and-install-kernel-ubuntu/).
 
-## costomize the TSP_ORDER for your own
+## Customize TSP_ORDER based on your own processor
 1. Obtain the cost of communication between cores from the following source: (https://github.com/nviennot/core-to-core-latency).
 2. Generate the shortest path using Google OR Tools. Refer to the documentation available at (https://developers.google.com/optimization).
 3. For these four files (ron.c, plockron.c, tickron.c, qspinlock.c), write the shortest path into an array. Taking AMD 2990WX as an example, the array format should be:
