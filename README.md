@@ -14,6 +14,7 @@
 1. Obtain the cost of communication between cores from the following source: (https://github.com/nviennot/core-to-core-latency).
 2. Generate the shortest path using Google OR Tools. Refer to the documentation available at (https://developers.google.com/optimization).
 3. For these four files (ron.c, plockron.c, tickron.c, qspinlock.c), write the shortest path into an array. Taking AMD 2990WX as an example, the array format should be:
+
    int idCov[64] = { 17, 48, 22, 6,  29, 50, 58, 55, 35, 4,  26, 10, 28,
            40, 12, 15, 57, 46, 54, 63, 25, 61, 37, 0,  14, 44,
            30, 49, 52, 1,  9,  38, 7,  34, 60, 33, 24, 20, 59,
