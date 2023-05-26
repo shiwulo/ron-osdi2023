@@ -7,7 +7,7 @@
  
 ## kernel space
 1. Download Linux kernel 5.12.1 from (https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-5.12.1.tar.xz).
-2. Use qspinlock.patch to patch (kernel source)/kernel/locking/qspinlock.c.
+2. Use qspinlock.patch to patch (kernel source)/kernel/locking/qspinlock.c. (https://www.howtogeek.com/415442/how-to-apply-a-patch-to-a-file-and-create-patches-in-linux/)
 3. Compile and install the kernel using the instructions provided at (https://linuxhint.com/compile-and-install-kernel-ubuntu/).
 
 ## Customize TSP_ORDER based on your own processor
@@ -21,11 +21,11 @@
            41, 5,  8,  45, 13, 43, 31, 36, 21, 19, 23, 51, 3,
            11, 32, 27, 39, 62, 18, 42, 47, 53, 16, 56, 2 };
 
-
-# Artifact Description
+# AE
+## Artifact Description
 The Artifact includes an implementation of the RON algorithm using C11. To compare it with other algorithms, these C files need to be compiled together with LiTL. Use the methods provided by LiTL to run the applications, which can be simple multithreaded programs or regular applications like Google LevelDB. Since the RON algorithm is highly optimized for CPUs, users must understand how the cores are interconnected to construct the TSP_ORDER. If using an AMD 2990WX, it is possible to reproduce the results without modifying the code.
 
-# Testing Environment
+## Testing Environment
 To access the testing environment, use the following command to log in:
 
 
@@ -33,7 +33,7 @@ To access the testing environment, use the following command to log in:
 
 If the reviewer has a 2990WX machine, they can create an account named 'osdi2023' on the machine and use sftp to copy the files from numa1 to their computer.
 
-# File and Directory Structures
+## File and Directory Structures
 The artifact contains 5 directories,
 * litl: LiTL is a library that allows executing a program based on Pthread mutex locks with another locking algorithm.
     * Author : Hugo Guiroux <hugo.guiroux at gmail dot com>
@@ -53,7 +53,7 @@ The artifact contains 5 directories,
     * Figure.sh: Our testing shell script file, users can execute this file to get the final result. 
     * testing_code: This directory stores all the testing code by figure name.
 
-# Microbenchmarks for Quantitative Analysis
+## Microbenchmarks for Quantitative Analysis
 
 * Step 1: Execute Figure.sh
 ```bash=
@@ -72,7 +72,7 @@ cd ~/test/
     * ``` $ scp -r osdi2023@numa1.cs.ccu.edu.tw:~/test/Figure/ ./ ```
 
 
-# Application-level benchmarks
+## Application-level benchmarks
 In this section, we use LD_PRELOAD to make the application use the modified lock-unlock functions. We have placed all scripts in the ~/app_benchmark directory. The corresponding lock-unlock algorithms and scripts are as follows:
 
 | Algorithm | Script | 
@@ -83,7 +83,7 @@ In this section, we use LD_PRELOAD to make the application use the modified lock
 | pthread     | libpthreadspin_original.sh     | 
 | RON-ticket     | libtickron_original.sh     | 
 
-## Figure 10
+### Figure 10
 Google LevelDB provides a performance measurement tool called "db_bench". Therefore, we can measure the performance of different spinlock algorithms on LevelDB by using LD_PRELOAD. The following is the method of execution.
 ```bash=
 cd ~/app_benchmark/
@@ -100,7 +100,7 @@ Example of Results
 
 
 
-## Figure 11
+### Figure 11
 Due to the need to provide the correct input file, we have created Shell scripts for two Splash2X applications. Please refer to the Splash2X user manual (https://github.com/darchr/parsec-benchmark) for instructions on how to use it.
 
 
@@ -114,7 +114,7 @@ Example of Results
 ![](https://i.imgur.com/L4CSCX2.png)
 
 
-## Figure 12
+### Figure 12
 1. Download Linux kernel 5.12.1
 2. Replace the file kernel/locking/qspinlock.h with the one provided by the authors. (~/linux-ron/kernel/locking/qspinlock.h)
 3. Compile and install Linux kernel
@@ -122,7 +122,7 @@ Example of Results
 
 The spinlock algorithm used by the Linux currently running on numa1.cs.ccu.edu.tw is RON. Validating the performance of the algorithm requires switching Linux kernels. If the reviewer needs to verify this part of the performance, please let us know. We can switch the Linux kernel to the regular version at the time specified by reviewers.
 
-# Evaluation and Expected Result
+## Evaluation and Expected Result
 
 The aforementioned method can be used to compare the performance of RON with other algorithms. The reviewer was able to replicate almost all experimental results. As far as we know, there is a higher degree of variability in the results of the experiment shown in Figure 5.a, possibly due to the fact that all algorithms have similar performance under low load conditions.
 
